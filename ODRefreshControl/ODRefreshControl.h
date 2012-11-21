@@ -15,7 +15,7 @@
     CAShapeLayer *_shapeLayer;
     CAShapeLayer *_arrowLayer;
     CAShapeLayer *_highlightLayer;
-    UIView *_activity;
+    UIActivityIndicatorView *_activity;
     BOOL _refreshing;
     BOOL _canRefresh;
     BOOL _ignoreInset;

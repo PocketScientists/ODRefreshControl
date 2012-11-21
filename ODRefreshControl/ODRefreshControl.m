@@ -51,7 +51,7 @@ static inline CGFloat lerp(CGFloat a, CGFloat b, CGFloat p)
     return [self initInScrollView:scrollView activityIndicatorView:nil];
 }
 
-- (id)initInScrollView:(UIScrollView *)scrollView activityIndicatorView:(UIView *)activity
+- (id)initInScrollView:(UIScrollView *)scrollView activityIndicatorView:(UIActivityIndicatorView *)activity
 {
     self = [super initWithFrame:CGRectMake(0, -(kTotalViewHeight + scrollView.contentInset.top), scrollView.frame.size.width, kTotalViewHeight)];
     
@@ -64,10 +64,9 @@ static inline CGFloat lerp(CGFloat a, CGFloat b, CGFloat p)
         [scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
         [scrollView addObserver:self forKeyPath:@"contentInset" options:NSKeyValueObservingOptionNew context:nil];
         
-        _activity = activity ? activity : [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        _activity = activity ? activity : [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
         _activity.center = CGPointMake(floor(self.frame.size.width / 2), floor(self.frame.size.height / 2));
-        _activity.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-        _activity.alpha = 0;
+        _activity.alpha = 1;
         if ([_activity respondsToSelector:@selector(startAnimating)]) {
             [(UIActivityIndicatorView *)_activity startAnimating];
         }
@@ -98,7 +97,7 @@ static inline CGFloat lerp(CGFloat a, CGFloat b, CGFloat p)
         [_shapeLayer addSublayer:_arrowLayer];
         
         _highlightLayer = [CAShapeLayer layer];
-        _highlightLayer.fillColor = [[[UIColor whiteColor] colorWithAlphaComponent:0.2] CGColor];
+        _highlightLayer.fillColor = [[[UIColor darkGrayColor] colorWithAlphaComponent:0.2] CGColor];
         [_shapeLayer addSublayer:_highlightLayer];
     }
     return self;
@@ -130,6 +129,7 @@ static inline CGFloat lerp(CGFloat a, CGFloat b, CGFloat p)
 - (void)setTintColor:(UIColor *)tintColor
 {
     _tintColor = tintColor;
+    _activity.color = tintColor;
     _shapeLayer.fillColor = [_tintColor CGColor];
 }
 
